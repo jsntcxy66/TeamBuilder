@@ -7,5 +7,5 @@
 - Node.js, Express, Socket.io
 - Directory: server/
 
-##Tip
-- Haven't build room page
+## Tip
+- Haven't build room detail page
