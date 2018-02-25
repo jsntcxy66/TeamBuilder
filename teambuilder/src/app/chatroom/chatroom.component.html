@@ -1,0 +1,46 @@
+<div class="container" fxLayout="column" fxLayoutGap="20px">
+
+    <div fxFlex>
+      <div>
+        <h3>Team: Ruo Ji</h3>
+        <hr>
+      </div>
+    </div>
+  
+    <div fxFlex>
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+        <div fxFlex="50">
+          <mat-card *ngFor="let user of UserGroup">
+            <blockquote>
+              <h3>{{user.name}}</h3>
+              <p>{{user.skill}}</p>
+            </blockquote>
+          </mat-card>
+        </div>
+        <div fxFlex="50">
+            <h2>Real-time Chating</h2>
+            <mat-list>
+              <mat-list-item *ngFor="let user of UserGroup">            
+                <h3 mat-line>{{user.name}}</h3>
+                <p mat-line>{{user.skill}}</p>
+              </mat-list-item>
+            </mat-list>
+        </div>
+      </div>
+    </div>
+  
+    <div fxFlex>
+      <div fxLayout="column" fxLayout.gt-sm="row">
+        <div fxFlex="60">
+  
+        </div>
+  
+  
+        <div fxFlex="40">
+          <p>Hello</p>
+        </div>
+      </div>
+    </div>
+  
+  
+  </div>

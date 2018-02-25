@@ -1,0 +1,28 @@
+<div class="form-size">
+  <h3>Tell us something about you</h3>
+  <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Your Name" type="text" required>
+        <mat-hint>
+          <span [hidden]="!(formErrors.name)">
+            {{formErrors.name}}
+          </span>
+        </mat-hint>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field>
+        <textarea matInput formControlName="skill" placeholder='Your skills, seperate by comma, e.g. "Java,C#"' rows=12></textarea>
+        <mat-hint>
+          <span [hidden]="!(formErrors.skill)">
+            {{formErrors.skill}}
+          </span>
+        </mat-hint>
+      </mat-form-field>
+    </p>
+
+    <button type="submit" mat-button [disabled]="feedbackForm.invalid">Build My Team</button>
+  </form>
+</div>
