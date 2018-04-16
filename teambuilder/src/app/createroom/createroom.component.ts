@@ -20,7 +20,6 @@ import { AuthService } from '../auth.service';
 })
 export class CreateroomComponent implements OnInit {
 
-  flag: boolean = false;
   errflag: boolean = false;
   CreateroomForm: FormGroup;
   formErrors = {
@@ -43,19 +42,23 @@ export class CreateroomComponent implements OnInit {
 
     this.createForm();
 
-    this.chatService.messages.subscribe(msg => {
-      let arr = msg.split(':');
-      if (arr[0] == '05') {
-        if (arr[1] == '0') {
-          this.flag = true;
-          this.roomService.roomMembers.push(arr[2]);
-          this.roomService.currentRoom = this.CreateroomForm.value.rname;
-          this.dialogRef.close(this.flag);
-        } else {
-          this.errflag = true;
-        }
-      }
+    this.roomService.createRoomSub.subscribe(flag => {
+      if (flag == true) this.dialogRef.close(flag);
+      else this.errflag = true;
     });
+    // this.chatService.messages.subscribe(msg => {
+    //   let arr = msg.split(':');
+    //   if (arr[0] == '05') {
+    //     if (arr[1] == '0') {
+    //       this.flag = true;
+    //       this.roomService.roomMembers.push(arr[2]);
+    //       this.roomService.currentRoom = this.CreateroomForm.value.rname;
+    //       this.dialogRef.close(this.flag);
+    //     } else {
+    //       this.errflag = true;
+    //     }
+    //   }
+    // });
   }
 
   ngOnInit() {

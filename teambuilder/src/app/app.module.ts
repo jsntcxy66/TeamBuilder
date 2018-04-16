@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { RoomlistComponent } from './roomlist/roomlist.component';
+import { RoomlistComponent, SnackbarComponent } from './roomlist/roomlist.component';
 
 import { FeedbackService } from './services/feedback.service';
 import { WebsocketService } from './websocket.service';
@@ -40,7 +40,8 @@ import { RegisterComponent } from './register/register.component';
     ChatroomComponent,
     LoginComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +70,8 @@ import { RegisterComponent } from './register/register.component';
     RoomService
   ],
   entryComponents: [
-    CreateroomComponent
+    CreateroomComponent,
+    SnackbarComponent
   ],
   bootstrap: [AppComponent]
 })

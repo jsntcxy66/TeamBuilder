@@ -4,6 +4,8 @@ import { User } from './../shared/user';
 import { FeedbackService } from '../services/feedback.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from '../roomlist/roomlist.component';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +37,8 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private feedbackService: FeedbackService,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private snackBar: MatSnackBar) {
     this.createForm();
   }
 
@@ -74,12 +77,19 @@ export class RegisterComponent implements OnInit {
       this.authService.token = res.Token;
       this.authService.username = this.user.username;
       this.router.navigate(['/roomlist']);
-    });
+    },
+    err => this.openSnackBar());
     // this.feedbackService.login(this.user).subscribe(res => {
     //   this.userRes = res;
     //   console.log(this.userRes.username);
       
     // });
+  }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 500
+    });
   }
 
 }

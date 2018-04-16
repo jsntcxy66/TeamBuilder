@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule, MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Params, ActivatedRoute, Router } from '@angular/router';
-import * as io from 'socket.io-client';
+import { Params, Router } from '@angular/router';
 
 import { User } from '../shared/user';
 import { Room } from '../shared/room';
@@ -37,20 +36,26 @@ export class RoomlistComponent implements OnInit {
 
     console.log('new message from client to websocket: ');
     this.chatService.messages.next('00:' + this.authService.token);
-    this.rooms = this.roomService.roomList;
-    this.chatService.messages.subscribe(msg => {
-      let arr = msg.split(':');
-      if (arr[0] == '07') {
-        if (arr[1] == '0') {
-          let a,b;
-          [a,b, ...this.roomService.roomMembers] = arr;
-          this.roomService.currentRoom = this.roomname;
-          this.router.navigate(['/room']);
-        } else {
-          this.openSnackBar();
-        }
-      }
+    this.roomService.roomListSub.subscribe(roomlist => {
+      this.rooms = roomlist;
     });
+    this.roomService.joinRoomSub.subscribe(flag => {
+      if (flag == true) this.router.navigate(['/room']);
+      else this.openSnackBar();
+    });
+    // this.chatService.messages.subscribe(msg => {
+    //   let arr = msg.split(':');
+    //   if (arr[0] == '07') {
+    //     if (arr[1] == '0') {
+    //       let a,b;
+    //       [a,b, ...this.roomService.roomMembers] = arr;
+    //       this.roomService.currentRoom = this.roomname;
+    //       this.router.navigate(['/room']);
+    //     } else {
+    //       this.openSnackBar();
+    //     }
+    //   }
+    // });
   }
 
   ngOnInit() {
@@ -83,7 +88,7 @@ export class RoomlistComponent implements OnInit {
 
 @Component({
   selector: 'app-snackbar',
-  template: `<span>Join in failed!</span>`
+  template: `<span>Failed!</span>`
 })
 export class SnackbarComponent {}
 

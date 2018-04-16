@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { WebsocketService } from './websocket.service';
 
-const CHAT_URL = 'ws://localhost:3000/websocket';
+const CHAT_URL = 'ws://localhost:8080/websocket';
 
 @Injectable()
 export class ChatService {

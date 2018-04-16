@@ -43,12 +43,17 @@ export class ChatroomComponent implements OnInit {
     private chatService: ChatService,
     private authService: AuthService) {
 
-      this.usernames = this.roomService.roomMembers;
-      this.chatService.messages.subscribe(msg => {
-        let arr = msg.split(':');
-        if (arr[0] == '10')
-          this.messages.push(arr[1]+':'+arr[2]);
+      this.roomService.roomMemberSub.subscribe(roommember => {
+        this.usernames = roommember;
       });
+      this.roomService.messages.subscribe(msg => {
+        if (msg) this.messages.push(msg);
+      });
+      // this.chatService.messages.subscribe(msg => {
+      //   let arr = msg.split(':');
+      //   if (arr[0] == '10')
+      //     this.messages.push(arr[1]+':'+arr[2]);
+      // });
      }
 
   ngOnInit() {
@@ -64,8 +69,6 @@ export class ChatroomComponent implements OnInit {
     document.getElementById('scrollbottom').scrollIntoView({
       behavior: 'smooth'
     });
-    if (this.sendmessage)
-      this.messages.push(this.sendmessage);
   }
 
 }
