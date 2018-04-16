@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Route, Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
@@ -8,7 +9,8 @@ export class AuthService {
   token: string;
   username: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private router: Router) { }
 
   login(username: string, password: string): Observable<object> {
     const body = new HttpParams()
@@ -29,5 +31,6 @@ export class AuthService {
   logout() {
     this.token = undefined;
     this.username = undefined;
+    this.router.navigate(["/login"]);
   }
 }

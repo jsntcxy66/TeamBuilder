@@ -2,6 +2,7 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ChatService } from './chat.service';
 import * as Rx from 'rxjs/Rx';
+import { AuthService } from './auth.service';
 
 
 @Injectable()
@@ -18,14 +19,16 @@ export class RoomService {
   roomListSub: Subject<Array<string>>;
   roomMemberSub: Subject<Array<string>>;
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService, private authService: AuthService) {
     this.createRoomSub = new Rx.Subject();
     this.joinRoomSub = new Rx.Subject();
     this.messages = new Rx.Subject();
     this.roomListSub = new Rx.Subject();
     this.roomMemberSub = new Rx.Subject();
 
+    this.sendToken(this.authService.token);
     this.chatService.messages.subscribe(msg => {
+      console.log(msg);
       let arr = msg.split(':');
       switch(arr[0]) {
         case '01':
@@ -86,6 +89,8 @@ export class RoomService {
    }
 
   sendToken(Token: string) {
+    console.log("send 00");
+    console.log(Token);
     this.chatService.messages.next('00:' + Token);
   }
 

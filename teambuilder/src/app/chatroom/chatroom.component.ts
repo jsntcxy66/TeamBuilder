@@ -3,6 +3,7 @@ import { User } from '../shared/user';
 import { RoomService } from '../room.service';
 import { ChatService } from '../chat.service';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chatroom',
@@ -11,7 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class ChatroomComponent implements OnInit {
 
-  rname: string = "ruo ji";
+  rname: string;
   avatars: Array<string> = ["../../assets/images/p1.bmp", "../../assets/images/p2.bmp", "../../assets/images/p3.bmp", "../../assets/images/p4.bmp", "../../assets/images/p5.bmp", "../../assets/images/p6.bmp"];;
   // UserGroup = [
   //   {
@@ -41,12 +42,17 @@ export class ChatroomComponent implements OnInit {
 
   constructor(private roomService: RoomService,
     private chatService: ChatService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private route: Router) {
+      this.rname = this.roomService.currentRoom;
+      this.usernames = this.roomService.roomMembers;
 
       this.roomService.roomMemberSub.subscribe(roommember => {
         this.usernames = roommember;
       });
       this.roomService.messages.subscribe(msg => {
+        console.log("should have msg");
+        console.log(msg);
         if (msg) this.messages.push(msg);
       });
       // this.chatService.messages.subscribe(msg => {
@@ -69,6 +75,11 @@ export class ChatroomComponent implements OnInit {
     document.getElementById('scrollbottom').scrollIntoView({
       behavior: 'smooth'
     });
+  }
+
+  onLeave() {
+    this.roomService.leaveRoom(this.authService.username, this.roomService.currentRoom);
+    this.route.navigate(["/roomlist"]);
   }
 
 }
