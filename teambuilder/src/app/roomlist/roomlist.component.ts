@@ -63,7 +63,15 @@ export class RoomlistComponent implements OnInit {
   }
 
   openCreateroomForm() {
-    this.dialog.open(CreateroomComponent, { width: '500px', height: '450px' });
+    let dialogRef = this.dialog.open(CreateroomComponent, { width: '500px', height: '450px' });
+    dialogRef.afterClosed().subscribe((flag:boolean) => {
+      console.log("This is after close");
+      if (flag == true) {
+        console.log("If this show, flag = true");
+        this.router.navigate(['/room']);
+      }
+        
+    });
   }
 
   openSnackBar() {

@@ -42,10 +42,7 @@ export class CreateroomComponent implements OnInit {
     private authService: AuthService) {
 
     this.createForm();
-    this.dialogRef.afterClosed().subscribe(() => {
-      if (this.flag == true)
-        this.router.navigate(['/roomlist']);
-    });
+
     this.chatService.messages.subscribe(msg => {
       let arr = msg.split(':');
       if (arr[0] == '05') {
@@ -53,7 +50,7 @@ export class CreateroomComponent implements OnInit {
           this.flag = true;
           this.roomService.roomMembers.push(arr[2]);
           this.roomService.currentRoom = this.CreateroomForm.value.rname;
-          this.dialogRef.close();
+          this.dialogRef.close(this.flag);
         } else {
           this.errflag = true;
         }

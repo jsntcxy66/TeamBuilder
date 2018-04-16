@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -11,17 +11,19 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   login(username: string, password: string): Observable<object> {
-    return this.httpClient.post("http://localhost:8080/api/login", {
-      username: username,
-      password: password
-    });
+    const body = new HttpParams()
+      .set(`username`, username)
+      .set(`password`, password);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    return this.httpClient.post("http://localhost:8080/api/login", body.toString(), {headers: headers});
   }
 
   register(username: string, password: string): Observable<object> {
-    return this.httpClient.post("http://localhost:8080/api/register", {
-      username: username,
-      password: password
-    });
+    const body = new HttpParams()
+      .set(`username`, username)
+      .set(`password`, password);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    return this.httpClient.post("http://localhost:8080/api/register", body.toString(), {headers: headers});
   }
 
   logout() {
