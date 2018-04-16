@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from './../shared/user';
 import { FeedbackService } from '../services/feedback.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +32,10 @@ export class RegisterComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder, private feedbackService: FeedbackService, private router: Router) {
+  constructor(private fb: FormBuilder,
+    private feedbackService: FeedbackService,
+    private router: Router,
+    private authService: AuthService) {
     this.createForm();
   }
 
@@ -66,12 +70,16 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.user = this.registerForm.value;
     console.log(this.user);
+    this.authService.register(this.user.username, this.user.password).subscribe((res:{Token:string}) => {
+      this.authService.token = res.Token;
+      this.authService.username = this.user.username;
+      this.router.navigate(['/roomlist']);
+    });
     // this.feedbackService.login(this.user).subscribe(res => {
     //   this.userRes = res;
     //   console.log(this.userRes.username);
       
     // });
-    this.router.navigate(['/login']);
   }
 
 }

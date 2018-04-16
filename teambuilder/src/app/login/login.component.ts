@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from './../shared/user';
 import { FeedbackService } from '../services/feedback.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   user: User;
-  userRes: User;
   formErrors = {
     'username': '',
     'password': ''
@@ -32,7 +32,10 @@ export class LoginComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder, private feedbackService: FeedbackService, private router: Router) {
+  constructor(private fb: FormBuilder, 
+    private feedbackService: FeedbackService, 
+    private router: Router,
+    private authService: AuthService) {
     this.createForm();
   }
 
@@ -68,23 +71,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.user = this.loginForm.value;
     console.log(this.user);
-    this.feedbackService.login(this.user).subscribe(res => {
-      this.userRes = res;
-      console.log(this.userRes.username);
-      this.router.navigate(['/roomlist',this.userRes.username]);
+    this.authService.login(this.user.username, this.user.password).subscribe((res:{Token:string}) => {
+      this.authService.token = res.Token;
+      this.authService.username = this.user.username;
+      this.router.navigate(['/roomlist']);
     });
-    // this.submited = true;
-    // this.feedbackservice.submitFeedback(this.feedback)
-    //   .subscribe(feedback => {
-    //     this.feedback = feedback;
-    //     this.showData = true;
-    //     this.submited = false;
-    //     setTimeout(() => {
-    //       this.showData = false;
-    //     }, 5000);
-    //   },
-    //     errmess => this.feedbackErrMess = <any>errmess
-    //   );
   }
 
   createAccount() {

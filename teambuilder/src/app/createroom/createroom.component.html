@@ -17,5 +17,8 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="CreateroomForm.invalid">Create</button>
+    <mat-hint color="warn">
+      <span [hidden]="!errflag">Please enter another room name!</span>
+    </mat-hint>
   </mat-dialog-actions>
 </form>

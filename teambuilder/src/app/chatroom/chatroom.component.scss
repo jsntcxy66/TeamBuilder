@@ -20,6 +20,7 @@ $background-pale: rgb(252, 220, 207);
 }
 .overflow-scroll {
   max-height: 250px;
+  min-height: 250px;
   overflow: scroll;
 }
 .item-center {

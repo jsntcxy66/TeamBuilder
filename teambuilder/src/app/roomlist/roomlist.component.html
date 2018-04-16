@@ -14,10 +14,9 @@
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar [ngStyle]="{'background-image': 'url(' + avatars[i%6] + ')'}" class="example-header-image"></div>
-                <mat-card-title>{{room.rname}}</mat-card-title>
-                <mat-card-subtitle>Number of people: {{room.current_num}}</mat-card-subtitle>
+                <mat-card-title>{{room}}</mat-card-title>
                 <span class="flex-spacer"></span>
-                <button mat-button class="primary-color">Join</button>
+                <button mat-button class="primary-color" (click)="onSubmit(room)">Join</button>
               </mat-card-header>
             </mat-card>
           </div>

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms/src/model';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, Router } from '@angular/router';
 
-import { RoomService } from '../services/room.service';
 import { FeedbackService } from '../services/feedback.service';
 
 import { Room } from '../shared/room';
 import { User } from '../shared/user';
 import { UserRes } from '../shared/userRes';
+import { ChatService } from '../chat.service';
+import { RoomService } from '../room.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-createroom',
@@ -18,8 +20,9 @@ import { UserRes } from '../shared/userRes';
 })
 export class CreateroomComponent implements OnInit {
 
+  flag: boolean = false;
+  errflag: boolean = false;
   CreateroomForm: FormGroup;
-  rname: string;
   formErrors = {
     'rname': '',
   };
@@ -30,18 +33,36 @@ export class CreateroomComponent implements OnInit {
       'maxlength': 'A room name cannot be more than 25 characters.'
     }
   };
-  user: UserRes;
 
   constructor(private dialogRef: MatDialogRef<CreateroomComponent>,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private roomservice: RoomService,
-    public feedbackService: FeedbackService) {
+    private router: Router,
+    private chatService: ChatService,
+    private roomService: RoomService,
+    private authService: AuthService) {
+
     this.createForm();
+    this.dialogRef.afterClosed().subscribe(() => {
+      if (this.flag == true)
+        this.router.navigate(['/roomlist']);
+    });
+    this.chatService.messages.subscribe(msg => {
+      let arr = msg.split(':');
+      if (arr[0] == '05') {
+        if (arr[1] == '0') {
+          this.flag = true;
+          this.roomService.roomMembers.push(arr[2]);
+          this.roomService.currentRoom = this.CreateroomForm.value.rname;
+          this.dialogRef.close();
+        } else {
+          this.errflag = true;
+        }
+      }
+    });
   }
 
   ngOnInit() {
-    this.user = this.feedbackService.userRes;
+
   }
 
   createForm() {
@@ -68,10 +89,11 @@ export class CreateroomComponent implements OnInit {
   }
 
   onSubmit() {
+    this.roomService.createRoom(this.authService.username, this.CreateroomForm.value.rname);
     // console.log(this.user.uid);
     // this.rname = this.CreateroomForm.value.rname;
     // console.log(this.rname);
     // this.roomservice.createRoom(this.user.uid, this.rname).subscribe(res => console.log(res));
-    this.dialogRef.close();
   }
+
 }

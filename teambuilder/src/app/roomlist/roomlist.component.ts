@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import * as io from 'socket.io-client';
 
 import { User } from '../shared/user';
 import { Room } from '../shared/room';
-import { RoomService } from '../services/room.service';
 import { CreateroomComponent } from '../createroom/createroom.component';
 import { baseURL } from '../shared/baseurl';
 import { UserRes } from '../shared/userRes';
 import { FeedbackService } from '../services/feedback.service';
+import { ChatService } from '../chat.service';
+import { AuthService } from '../auth.service';
+import { RoomService } from '../room.service';
 
 
 @Component({
@@ -20,53 +22,60 @@ import { FeedbackService } from '../services/feedback.service';
 })
 export class RoomlistComponent implements OnInit {
 
-  avatars : Array<string> = ["../../assets/images/1.png", "../../assets/images/2.png", "../../assets/images/3.png", "../../assets/images/4.png", "../../assets/images/5.png", "../../assets/images/6.png"];
+  avatars: Array<string> = ["../../assets/images/1.png", "../../assets/images/2.png", "../../assets/images/3.png", "../../assets/images/4.png", "../../assets/images/5.png", "../../assets/images/6.png"];
   socket: any;
-  user = {
-    "username": "mat"
-  };
+  rooms = ["Come On!", "Come on!!"];
+  roomname: string;
 
-  numofpeople: number;
-  rooms = [{
-    "rid": 1,
-    "rname": "Come On!",
-    "current_num": 1,
-    "total_num": 3,
-    "skills": ["a","b","c"],
-  },
-  {
-    "rid": 10,
-    "rname": "Come On!!",
-    "current_num": 2,
-    "total_num": 3,
-    "skills": ["d","e","f"],
-  }
-  ];
-  listroom: Room[];
-  userRes: UserRes;
+  constructor(
+    private dialog: MatDialog,
+    private chatService: ChatService,
+    private authService: AuthService,
+    private roomService: RoomService,
+    private router: Router,
+    private snackBar: MatSnackBar) {
 
-  constructor(private roomservice: RoomService, private dialog: MatDialog,
-    private route: ActivatedRoute, private feedbackService: FeedbackService) {
-   // this.roomservice.getRooms().subscribe(rooms => this.rooms = rooms);
+    console.log('new message from client to websocket: ');
+    this.chatService.messages.next('00:' + this.authService.token);
+    this.rooms = this.roomService.roomList;
+    this.chatService.messages.subscribe(msg => {
+      let arr = msg.split(':');
+      if (arr[0] == '07') {
+        if (arr[1] == '0') {
+          let a,b;
+          [a,b, ...this.roomService.roomMembers] = arr;
+          this.roomService.currentRoom = this.roomname;
+          this.router.navigate(['/room']);
+        } else {
+          this.openSnackBar();
+        }
+      }
+    });
   }
 
   ngOnInit() {
-    // this.userRes = this.feedbackService.userRes;
-    // this.listroom = this.userRes.room;
-    // console.log(this.userRes);
-    // let uid = +this.route.snapshot.params['uid'];
 
-    // this.socket = io("http://localhost:3000/");
+  }
 
-    // this.socket.on('all_room', (data) => {
-    //   console.log('all_room');
-    //   this.listroom = data;
-    //   console.log(data); //will this work?
-    // });
-    //this.listroom = this.rooms;
+  onSubmit(room) {
+    this.roomname = room;
+    this.roomService.joinRoom(this.authService.username, room);
   }
 
   openCreateroomForm() {
     this.dialog.open(CreateroomComponent, { width: '500px', height: '450px' });
   }
+
+  openSnackBar() {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      duration: 500
+    });
+  }
 }
+
+@Component({
+  selector: 'app-snackbar',
+  template: `<span>Join in failed!</span>`
+})
+export class SnackbarComponent {}
+

@@ -5,6 +5,8 @@
       <mat-list-item>
         <img matListAvatar src="../../assets/images/2.png" alt="room_avatar">
         <h1 matLine class="primary-color">{{rname | titlecase}}</h1>
+        <span class="flex-spacer"></span>
+        <button mat-button class="background-primary text-floral-white" [routerLink]="['/roomlist']">Leave</button>
       </mat-list-item>
       <mat-divider></mat-divider>
     </mat-list>
@@ -22,9 +24,9 @@
           </mat-card-header>
           <mat-card-content>
             <mat-list>
-              <mat-list-item *ngFor="let user of UserGroup; let i = index">
+              <mat-list-item *ngFor="let user of usernames; let i = index">
                 <img matListAvatar src={{avatars[i%6]}} alt="room_avatar">
-                <h4 matLine>{{user.name | titlecase}}</h4>
+                <h4 matLine>{{user | titlecase}}</h4>
               </mat-list-item>
             </mat-list>
           </mat-card-content>
