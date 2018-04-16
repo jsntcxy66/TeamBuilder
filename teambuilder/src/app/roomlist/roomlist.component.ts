@@ -28,16 +28,16 @@ export class RoomlistComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private chatService: ChatService,
     private authService: AuthService,
     private roomService: RoomService,
     private router: Router,
     private snackBar: MatSnackBar) {
 
-    console.log('new message from client to websocket: ');
-    this.chatService.messages.next('00:' + this.authService.token);
+    this.rooms = this.roomService.roomList;
+    this.roomService.sendToken(this.authService.token);
     this.roomService.roomListSub.subscribe(roomlist => {
       this.rooms = roomlist;
+      console.log(this.rooms);
     });
     this.roomService.joinRoomSub.subscribe(flag => {
       if (flag == true) this.router.navigate(['/room']);
