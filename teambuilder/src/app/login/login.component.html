@@ -1,0 +1,30 @@
+<div class="container">
+  <div fxFlex fxFlexOffset="20%" class="form-size">
+    <h3>Login</h3>
+    <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field class="half-width" dividerColor="{{formErrors.username ? 'warn': 'primary'}}">
+          <input matInput placeholder="Username" type="text" formControlName="username" required>
+          <mat-hint color="warn">
+            <span [hidden]="!(formErrors.username)">{{formErrors.username}}</span>
+          </mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width" dividerColor="{{formErrors.password ? 'warn': 'primary'}}">
+          <input matInput placeholder="Password" type="password" formControlName="password" required>
+          <mat-hint color="warn">
+            <span [hidden]="!(formErrors.password)">{{formErrors.password}}</span>
+          </mat-hint>
+        </mat-form-field>
+        <!-- <md-checkbox [(ngModel)]="user.remember" name="remember">
+        Remember Me
+      </md-checkbox> -->
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="loginForm.invalid">Login</button>
+    </form>
+    <p>
+      <button mat-button class="text-primary" (click)="createAccount()">Create an account</button>
+    </p>
+  </div>
+</div>

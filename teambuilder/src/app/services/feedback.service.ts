@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { UserRes } from '../shared/userRes';
+import { User } from '../shared/user';
 @Injectable()
 export class FeedbackService {
 
@@ -16,6 +17,12 @@ export class FeedbackService {
     return this.http.post(baseURL+"new_user",feedback)
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  login(user: User): Observable<User> {
+    return this.http.post(baseURL+"new_user", user)
+    .map((res:Response) => res.json())
+    .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }

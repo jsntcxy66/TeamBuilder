@@ -1,2 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+$lt-gray: #ddd;
+$background-dark: rgb(252, 142, 129);
+$background-light: lightsalmon;
+$background-pale: rgb(252, 220, 207);
+$primary-color-dark:   rgb(252, 142, 129);
+$primary-color:        lightsalmon;
+$primary-color-light:  rgb(252, 220, 207);
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FFC107;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+
+@mixin zero-margin($pad-up-down, $pad-left-right) {
+    margin: 0px auto;
+    padding: $pad-up-down $pad-left-right;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, sans-serif;
+}
+
+.container {
+    margin: 40px;
+    display: flex;
+}
+
+.background-primary {
+    background-color: $background-dark!important;
+  }
+.background-light {
+    background-color: $background-light!important;
+  }
+.text-floral-white {
+    color: floralwhite!important;
+}
+.text-primary {
+    color: $background-dark!important;
+}
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+.highlight {
+    background-color: $background-pale;
+    border: 1px solid $primary-color-dark;
+    z-index: 1;
+    transform: scale(1.01);
+}

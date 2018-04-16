@@ -1,0 +1,16 @@
+$lt-gray: #ddd;
+$background-dark: rgb(252, 142, 129);
+$background-moredark: rgb(252, 101, 85);
+$background-light: lightsalmon;
+$background-pale: rgb(252, 220, 207);
+.primary-color {
+  color: $background-dark;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+.right {
+  float: right;
+}

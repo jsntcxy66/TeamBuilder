@@ -1,29 +1,24 @@
-<div class="container" fxLayout="row" fxLayoutGap="20px">
-
-  <div fxFlex="60">
+<div class="container" fxLayout="column" fxLayoutGap="35px" fxFlex.gt-xs="70%" fxFlex.lt-xs="90%" fxLayoutAlign.lt-xs="start center" fxLayoutAlign.gt-xs="center">
+  <div>
     <mat-card>
+      
       <mat-card-header>
-        <mat-card-title>
-          <h2>Join a team</h2>
+        <mat-card-title class="primary-color">
+          <h2>Join a Room</h2>
         </mat-card-title>
       </mat-card-header>
 
-      <!--<mat-card-content>
+      <mat-card-content>
         <mat-list *ngIf="rooms">
-          <div *ngFor="let room of rooms">
+          <div *ngFor="let room of rooms; let i = index">
             <mat-card>
-              <p>{{room.rname}} {{room.currentnum}}/{{room.totalnum}}</p>
-            </mat-card>
-          </div>
-        </mat-list>
-      </mat-card-content>-->
-
-      <mat-card-content>
-        <mat-list *ngIf="listroom">
-          <div *ngFor="let room of listroom">
-            <mat-card>
-              <p>{{room.rname}} {{room.current_num}}/{{room.total_num}}</p>
-              <p>{{room.skills}}</p>
+              <mat-card-header>
+                <div mat-card-avatar [ngStyle]="{'background-image': 'url(' + avatars[i%6] + ')'}" class="example-header-image"></div>
+                <mat-card-title>{{room.rname}}</mat-card-title>
+                <mat-card-subtitle>Number of people: {{room.current_num}}</mat-card-subtitle>
+                <span class="flex-spacer"></span>
+                <button mat-button class="primary-color">Join</button>
+              </mat-card-header>
             </mat-card>
           </div>
         </mat-list>
@@ -31,14 +26,7 @@
 
     </mat-card>
   </div>
-  <div fxFlex="40">
-    <mat-card>
-      <mat-card-content>
-        <p>{{user.name}}</p>
-        <p>{{user.skill}}</p>
-      </mat-card-content>
-    </mat-card>
-    <a mat-button type="button" (click)="openCreateroomForm()">Create New Team</a>
+  <div>
+    <button mat-button class="background-primary text-floral-white right" type="button" (click)="openCreateroomForm()">Create New Room</button>
   </div>
-
 </div>

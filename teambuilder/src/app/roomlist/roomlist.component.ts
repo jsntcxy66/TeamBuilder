@@ -20,62 +20,23 @@ import { FeedbackService } from '../services/feedback.service';
 })
 export class RoomlistComponent implements OnInit {
 
+  avatars : Array<string> = ["../../assets/images/1.png", "../../assets/images/2.png", "../../assets/images/3.png", "../../assets/images/4.png", "../../assets/images/5.png", "../../assets/images/6.png"];
   socket: any;
   user = {
-    "name": "mat",
-    "skill": ["Java", "C++", "HTML"],
+    "username": "mat"
   };
 
-  //rooms: Room[];
   numofpeople: number;
   rooms = [{
     "rid": 1,
-    "rname": "Come On1",
-    "location": [{
-      "lid": 1,
-      "uid": 1,
-      "name": "Peter",
-      "skill": ["Anuglar", "NodeJS"]
-    },
-    {
-      "lid": 2,
-      "uid": -1,
-      "name": "",
-      "skill": ["Javascript"]
-    },
-    {
-      "lid": 3,
-      "uid": -1,
-      "name": "",
-      "skill": ["jQuery"]
-    }
-    ],
+    "rname": "Come On!",
     "current_num": 1,
     "total_num": 3,
     "skills": ["a","b","c"],
   },
   {
     "rid": 10,
-    "rname": "Come On2",
-    "location": [{
-      "lid": 1,
-      "uid": 10,
-      "name": "Li Lei",
-      "skill": ["C++"]
-    },
-    {
-      "lid": 2,
-      "uid": 11,
-      "name": "Han Meimei",
-      "skill": ["C#"]
-    },
-    {
-      "lid": 3,
-      "uid": -1,
-      "name": "",
-      "skill": ["C#"]
-    }
-    ],
+    "rname": "Come On!!",
     "current_num": 2,
     "total_num": 3,
     "skills": ["d","e","f"],
@@ -90,18 +51,18 @@ export class RoomlistComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userRes = this.feedbackService.userRes;
-    this.listroom = this.userRes.room;
-    console.log(this.userRes);
-    let uid = +this.route.snapshot.params['uid'];
+    // this.userRes = this.feedbackService.userRes;
+    // this.listroom = this.userRes.room;
+    // console.log(this.userRes);
+    // let uid = +this.route.snapshot.params['uid'];
 
-    this.socket = io("http://localhost:3000/");
+    // this.socket = io("http://localhost:3000/");
 
-    this.socket.on('all_room', (data) => {
-      console.log('all_room');
-      this.listroom = data;
-      console.log(data); //will this work?
-    });
+    // this.socket.on('all_room', (data) => {
+    //   console.log('all_room');
+    //   this.listroom = data;
+    //   console.log(data); //will this work?
+    // });
     //this.listroom = this.rooms;
   }
 

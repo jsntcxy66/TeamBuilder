@@ -25,9 +25,9 @@ export class CreateroomComponent implements OnInit {
   };
   validationMessages = {
     'rname': {
-      'required': 'Team Name is required.',
-      'minlength': 'Team Name must be at least 2 characters long.',
-      'maxlength': 'Team Name cannot be more than 25 characters.'
+      'required': 'A room name is required.',
+      'minlength': 'A room name must be at least 2 characters long.',
+      'maxlength': 'A room name cannot be more than 25 characters.'
     }
   };
   user: UserRes;
@@ -68,10 +68,10 @@ export class CreateroomComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.user.uid);
-    this.rname = this.CreateroomForm.value.rname;
-    console.log(this.rname);
-    this.roomservice.createRoom(this.user.uid, this.rname).subscribe(res => console.log(res));
+    // console.log(this.user.uid);
+    // this.rname = this.CreateroomForm.value.rname;
+    // console.log(this.rname);
+    // this.roomservice.createRoom(this.user.uid, this.rname).subscribe(res => console.log(res));
     this.dialogRef.close();
   }
 }

@@ -8,25 +8,19 @@ $background-pale: rgb(252, 220, 207);
     margin: 0px auto;
     padding: $pad-up-down $pad-left-right;
 }
-.item-center {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .primary-color {
     background: $background-dark;
     color:floralwhite;
 }
 
-.full-width {
-    width: 95%;
+.jumbotron {
+    @include zero-margin(70px,30px);
+    background: $background-light ;
+    color:floralwhite;
+    min-height: 150px;
 }
 
-.half-width {
-    width: 45%;
-}
-
-.form-size {
-    width: 50%;
+.active {
+    background: $background-moredark;
 }

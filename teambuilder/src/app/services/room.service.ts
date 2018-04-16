@@ -18,13 +18,13 @@ export class RoomService {
 //    return this.http.get(baseURL + 'roomlist')
 //                    .map(res => { return res.json(); });
 
-  createRoom(uid: number, rname: string): Observable<number> {
-    return this.http.post('http://localhost:3000/api/new_room', {"uid":uid, "rname":rname})
+  createRoom(uname: string, rname: string): Observable<number> {
+    return this.http.post('http://localhost:3000/api/new_room', {"uname":uname, "rname":rname})
       .map((res:Response) => res.json());
   }
 
-  joinRoom(uid: number, rid:number):Observable<any>{
-    return this.http.post('http://localhost:3000/api/enter_room', {"uid":uid, "rid":rid})
+  joinRoom(uname: string, rname: string):Observable<any>{
+    return this.http.post('http://localhost:3000/api/enter_room', {"uname":uname, "rname":rname})
       .map((res:Response) => res.json());
   }
 

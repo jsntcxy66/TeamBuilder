@@ -22,6 +22,9 @@ import { RoomService } from './services/room.service';
 import { FeedbackService } from './services/feedback.service';
 import { CreateroomComponent } from './createroom/createroom.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './header/header.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
     HomeComponent,
     RoomlistComponent,
     CreateroomComponent,
-    ChatroomComponent
+    ChatroomComponent,
+    LoginComponent,
+    HeaderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

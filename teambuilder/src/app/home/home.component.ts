@@ -75,7 +75,11 @@ export class HomeComponent implements OnInit,OnDestroy {
     let val = this.feedbackForm.value;
     val.skill = String(val.skill).split(',');
     console.log(val);
-    this.feedbackserve.submitFeedback(val).subscribe(res => {this.userRes = res; console.log(this.userRes.room);this.router.navigate(['/roomlist',this.userRes.uid]); });
+    this.feedbackserve.submitFeedback(val).subscribe(res => {
+      this.userRes = res;
+      console.log(this.userRes.room);
+      this.router.navigate(['/roomlist',this.userRes.uid]);
+    });
     
   }
 

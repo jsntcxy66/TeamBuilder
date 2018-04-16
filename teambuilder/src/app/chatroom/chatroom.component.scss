@@ -1,0 +1,30 @@
+$lt-gray: #ddd;
+$background-dark: rgb(252, 142, 129);
+$background-moredark: rgb(252, 101, 85);
+$background-light: lightsalmon;
+$background-pale: rgb(252, 220, 207);
+.primary-color {
+  color: $background-dark;
+}
+
+.full-width {
+  width: 95%;
+}
+
+.half-width {
+  width: 45%;
+}
+
+.form-size {
+  width: 50%;
+}
+.overflow-scroll {
+  max-height: 250px;
+  overflow: scroll;
+}
+.item-center {
+  align-items: center;
+}
+.float-right {
+  float: right;
+}

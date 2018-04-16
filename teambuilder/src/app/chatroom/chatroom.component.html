@@ -1,46 +1,65 @@
 <div class="container" fxLayout="column" fxLayoutGap="20px">
 
-    <div fxFlex>
-      <div>
-        <h3>Team: Ruo Ji</h3>
-        <hr>
-      </div>
-    </div>
-  
-    <div fxFlex>
-      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
-        <div fxFlex="50">
-          <mat-card *ngFor="let user of UserGroup">
-            <blockquote>
-              <h3>{{user.name}}</h3>
-              <p>{{user.skill}}</p>
-            </blockquote>
-          </mat-card>
-        </div>
-        <div fxFlex="50">
-            <h2>Real-time Chating</h2>
+  <div fxFlex>
+    <mat-list>
+      <mat-list-item>
+        <img matListAvatar src="../../assets/images/2.png" alt="room_avatar">
+        <h1 matLine class="primary-color">{{rname | titlecase}}</h1>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+
+  <div fxFlex>
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap="20px">
+
+      <div fxFlex="30">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title class="primary-color">
+              <h2>Room members</h2>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
             <mat-list>
-              <mat-list-item *ngFor="let user of UserGroup">            
-                <h3 mat-line>{{user.name}}</h3>
-                <p mat-line>{{user.skill}}</p>
+              <mat-list-item *ngFor="let user of UserGroup; let i = index">
+                <img matListAvatar src={{avatars[i%6]}} alt="room_avatar">
+                <h4 matLine>{{user.name | titlecase}}</h4>
               </mat-list-item>
             </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div fxFlex="70" fxLayout="column">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title class="primary-color">
+              <h2>Real-time Chating</h2>
+              <mat-divider></mat-divider>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="overflow-scroll">
+            <mat-list *ngIf="messages">
+              <mat-list-item *ngFor="let msg of messages">
+                <h5>{{msg}}</h5>
+              </mat-list-item>
+              <span id="scrollbottom"></span>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+        <div>
+          <form #sendInput="ngForm" (ngSubmit)="onSubmit()" fxLayout="row" class="item-center">
+            <mat-form-field fxFlex="80">
+              <input matInput placeholder="Typing message here....." type="text" [(ngModel)]="sendmessage" #message="ngModel" name="message">
+            </mat-form-field>
+            <div fxFlex="20">
+              <button type="submit" mat-button class="background-primary text-floral-white float-right" [disabled]="sendInput.form.invalid">Send</button>
+            </div>
+          </form>
         </div>
       </div>
+
     </div>
-  
-    <div fxFlex>
-      <div fxLayout="column" fxLayout.gt-sm="row">
-        <div fxFlex="60">
-  
-        </div>
-  
-  
-        <div fxFlex="40">
-          <p>Hello</p>
-        </div>
-      </div>
-    </div>
-  
-  
   </div>
+</div>

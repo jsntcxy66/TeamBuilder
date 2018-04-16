@@ -1,20 +1,21 @@
-<mat-toolbar mat-dialog-title color="primary">
-  Create New Team
+<mat-toolbar mat-dialog-title class="primary-color item-center">
+  <h2>Create New Chatroom</h2>
   <span class="flex-spacer"></span>
   <button mat-button mat-dialog-close>&times;</button>
 </mat-toolbar>
 
 <form novalidate [formGroup]="CreateroomForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
-    <mat-input-container>
-      <input matInput formControlName="rname" type="text" placeholder="Team Name" required>
-      <mat-hint>
+    <p>
+    <mat-form-field class="half-width" dividerColor="{{formErrors.rname ? 'warn': 'primary'}}">
+      <input matInput formControlName="rname" type="text" placeholder="Room Name" required>
+      <mat-hint color="warn">
         <span [hidden]="!(formErrors.rname)">{{formErrors.rname}}</span>
       </mat-hint>
-    </mat-input-container>
+    </mat-form-field>
+    </p>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <span class="flex-spacer"></span>
     <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="CreateroomForm.invalid">Create</button>
   </mat-dialog-actions>
 </form>

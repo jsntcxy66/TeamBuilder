@@ -1,5 +1,4 @@
 export class User {
-    uid: number;
-    name: string;
-    skill: string[];
+    username: string;
+    password: string;
 }
